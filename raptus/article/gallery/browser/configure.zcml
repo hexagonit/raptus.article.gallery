@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:article="http://namespaces.zope.org/article"
+    i18n_domain="raptus.article">
+
+    <article:component
+        name="gallery.left"
+        component=".gallery.ComponentLeft"
+        selection=".gallery.IATImage"
+        viewlet=".gallery.ViewletLeft"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle" />
+
+    <article:component
+        name="gallery.right"
+        component=".gallery.ComponentRight"
+        selection=".gallery.IATImage"
+        viewlet=".gallery.ViewletRight"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle" />
+
+    <article:component
+        name="gallery.columns"
+        component=".gallery.ComponentColumns"
+        selection=".gallery.IATImage"
+        viewlet=".gallery.ViewletColumns"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody" />
+
+</configure>

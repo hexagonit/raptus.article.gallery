@@ -1,0 +1,41 @@
+# Simon Käser <skaeser@raptus.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: raptus.article\n"
+"POT-Creation-Date: 2010-01-19 12:35+0000\n"
+"PO-Revision-Date: 2010-01-11 14:03+0000\n"
+"Last-Translator: Simon Käser <skaeser@raptus.com>\n"
+"Language-Team: German <skaeser@raptus.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: raptus.article\n"
+"X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:111
+msgid "Gallery columns"
+msgstr "Galerie Spalten"
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:23
+msgid "Gallery left"
+msgstr "Galerie links"
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:112
+msgid "Gallery of the images contained in the article arranged in columns."
+msgstr "Galerie der im Artikel enthaltenen Bilder dargestellt in Spalten."
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:24
+msgid "Gallery of the images contained in the article on the left side."
+msgstr "Galerie der im Artikel enthaltenen Bilder auf der linken Seite."
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:86
+msgid "Gallery of the images contained in the article on the right side."
+msgstr "Galerie der im Artikel enthaltenen Bilder auf der rechten Seite."
+
+#: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:85
+msgid "Gallery right"
+msgstr "Galerie rechts"

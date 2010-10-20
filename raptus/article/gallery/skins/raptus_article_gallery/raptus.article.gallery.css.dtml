@@ -1,0 +1,121 @@
+/* <dtml-with base_properties> (do not remove this :) */
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+/* <dtml-call "REQUEST.set('left_width', portal_properties.raptus_article.images_galleryleft_width)"> (not this either :) */
+/* <dtml-call "REQUEST.set('left_height', portal_properties.raptus_article.images_galleryleft_height)"> (not this either :) */
+/* <dtml-call "REQUEST.set('right_width', portal_properties.raptus_article.images_galleryright_width)"> (not this either :) */
+/* <dtml-call "REQUEST.set('right_height', portal_properties.raptus_article.images_galleryright_height)"> (not this either :) */
+/* <dtml-call "REQUEST.set('columns_width', portal_properties.raptus_article.images_gallerycolumns_width)"> (not this either :) */
+/* <dtml-call "REQUEST.set('columns_height', portal_properties.raptus_article.images_gallerycolumns_height)"> (not this either :) */
+/* <dtml-call "REQUEST.set('columns_crop_height', portal_properties.raptus_article.gallery_columns_cropheight)"> (not this either :) */
+/* <dtml-call "REQUEST.set('columns_crop_width', portal_properties.raptus_article.gallery_columns_cropwidth)"> (not this either :) */
+/* <dtml-call "REQUEST.set('left_crop_height', portal_properties.raptus_article.gallery_left_cropheight)"> (not this either :) */
+/* <dtml-call "REQUEST.set('left_crop_width', portal_properties.raptus_article.gallery_left_cropwidth)"> (not this either :) */
+/* <dtml-call "REQUEST.set('right_crop_height', portal_properties.raptus_article.gallery_right_cropheight)"> (not this either :) */
+/* <dtml-call "REQUEST.set('right_crop_width', portal_properties.raptus_article.gallery_right_cropwidth)"> (not this either :) */
+
+ul.gallery {
+  clear:both;
+  margin:0 0 2em 0;
+  line-height:1.5em;
+  font-size:0.9em;
+}
+
+ul.gallery li,
+#content ul.gallery li {
+  background-color:transparent;
+  display:block;
+}
+
+ul.gallery li a,
+ul.gallery li span,
+ul.gallery li a img {
+  display:block;
+}
+
+ul.gallery li a,
+ul.gallery li span {
+  overflow:hidden;
+  border:none;
+}
+
+ul.gallery-left {
+  width:&dtml-left_width;px;
+  padding:0 3em 1em 0;
+  background-color:&dtml-backgroundColor;;
+}
+
+ul.gallery-left li a,
+ul.gallery-left li span {
+  <dtml-if expr="left_crop_width > 0">
+  width:&dtml-left_crop_width;px;
+  </dtml-if>
+  <dtml-if expr="left_crop_height > 0">
+  height:&dtml-left_crop_height;px;
+  </dtml-if>
+}
+
+ul.gallery-right {
+  clear:right;
+  float:right;
+  width:&dtml-right_width;px;
+  padding:0 0 1em 3em;
+  background-color:&dtml-backgroundColor;;
+}
+
+ul.gallery-right li {
+  text-align:right;
+}
+
+ul.gallery-right li a,
+ul.gallery-right li span {
+  <dtml-if expr="right_crop_width > 0">
+  width:&dtml-right_crop_width;px;
+  </dtml-if>
+  <dtml-if expr="right_crop_height > 0">
+  height:&dtml-right_crop_height;px;
+  </dtml-if>
+}
+
+ul.gallery-columns {
+  overflow:hidden;
+  margin:3em 0 3em 0;
+}
+
+ul.gallery-columns li {
+  float:left;
+  border-bottom:0;
+  margin-right:2em;
+  padding:0;
+  background-color:transparent;
+  text-align:center;
+  <dtml-if expr="columns_crop_width > 0">
+  width:&dtml-columns_crop_width;px;
+  </dtml-if>
+  <dtml-if expr="columns_crop_width == 0 and columns_width > 0">
+  width:&dtml-columns_width;px;
+  </dtml-if>
+}
+
+ul.gallery-columns li a,
+ul.gallery-columns li span {
+  <dtml-if expr="columns_crop_width > 0">
+  width:&dtml-columns_crop_width;px;
+  </dtml-if>
+  <dtml-if expr="columns_crop_height > 0">
+  height:&dtml-columns_crop_height;px;
+  </dtml-if>
+}
+
+ul.gallery-columns li.first {
+  clear:both;
+}
+
+ul.gallery-columns li.last {
+  margin-right:0;
+}
+
+ul.gallery-columns .teaser {
+  margin-bottom:0.5em;
+}
+
+/* </dtml-with> */

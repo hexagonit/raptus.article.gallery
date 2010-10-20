@@ -1,0 +1,20 @@
+Developer Manual
+================
+
+Note: You find a developer manual for raptus.article at 
+`raptus.article.core <http://pypi.python.org/pypi/raptus.article.core>`_.
+Please have look there if you need more information.
+
+Code overview
+=============
+
+Components
+----------
+plone.abovecontenttitle:
+
+- raptus.article.gallery.left
+- raptus.article.gallery.right
+
+plone.belowcontentbody:
+
+- raptus.article.gallery.columns

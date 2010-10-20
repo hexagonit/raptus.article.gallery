@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object>
+
+ <order manager="plone.abovecontenttitle" skinname="*">
+  <viewlet name="raptus.article.gallery.left" insert-before="*" />
+  <viewlet name="raptus.article.gallery.right" insert-before="*" />
+ </order>
+
+ <order manager="plone.belowcontentbody" skinname="*">
+  <viewlet name="raptus.article.gallery.columns" insert-before="*" />
+ </order>
+
+</object>

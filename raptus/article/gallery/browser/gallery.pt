@@ -1,0 +1,29 @@
+<ul xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    class=""
+    tal:condition="view/images"
+    tal:attributes="class string:visualNoMarker manageableList gallery ${view/css_class}">
+  <tal:item repeat="item view/images">
+  <li class="component"
+      tal:condition="item/img"
+      tal:attributes="class string:component ${item/class}">
+    <metal:manage use-macro="context/raptus_article_macros/macros/manage" /> 
+    <a href=""
+       tal:omit-tag="not: item/url"
+       tal:attributes="href item/url;
+                       rel item/rel;
+                       title item/caption">
+    <span tal:omit-tag="item/url">
+      <img src="" tal:replace="structure item/img" />
+    </span>
+    </a>
+    <p class="discreet"
+       tal:condition="python: item['description'] and view.show_description"
+       tal:content="item/description">
+      Description
+    </p>
+  </li>
+  </tal:item>
+</ul>
