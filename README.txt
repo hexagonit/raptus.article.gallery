@@ -3,15 +3,16 @@ Introduction
 
 Provides basic gallery components.
 
-Following features for raptus.article are provided by this package:
+The following features for raptus.article are provided by this package:
 
-    * Components:
-        * Gallery left (Gallery of the images contained in the article on the left side)
-        * Gallery right (Gallery of the images contained in the article on the right side)
-        * Gallery columns (Gallery of the images contained in the article arranged in columns)
+Components
+----------
+    * Gallery left (Gallery of the images contained in the article on the left side)
+    * Gallery right (Gallery of the images contained in the article on the right side)
+    * Gallery columns (Gallery of the images contained in the article arranged in columns)
 
-Dependencies:
-
+Dependencies
+------------
     * raptus.article.images
 
 Installation
@@ -60,7 +61,5 @@ in the article in which this component is active.
 Copyright and credits
 =====================
 
-raptus.article is copyrighted by raptus_, and licensed under the GPL. 
+raptus.article is copyrighted by `Raptus AG <http://raptus.com>`_ and licensed under the GPL. 
 See LICENSE.txt for details.
-
-.. _raptus: http://raptus.com/ 

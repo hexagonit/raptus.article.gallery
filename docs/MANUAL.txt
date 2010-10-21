@@ -10,11 +10,12 @@ Code overview
 
 Components
 ----------
-plone.abovecontenttitle:
 
+plone.abovecontenttitle
+```````````````````````
 - raptus.article.gallery.left
 - raptus.article.gallery.right
 
-plone.belowcontentbody:
-
+plone.belowcontentbody
+``````````````````````
 - raptus.article.gallery.columns
