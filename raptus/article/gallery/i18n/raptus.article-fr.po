@@ -18,7 +18,7 @@ msgstr ""
 
 #: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:111
 msgid "Gallery columns"
-msgstr "Colonnes de la galerie"
+msgstr "Galerie en colonnes"
 
 #: raptus.article.gallery/raptus/article/gallery/browser/gallery.py:23
 msgid "Gallery left"
