@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0b7 (Unreleased)
+------------------
+
+* Render XHTML valid page template
+  [saily]
+  
 2.0b6 (2010-12-07)
 ------------------
 
