@@ -1,12 +1,13 @@
 Changelog
 =========
 
-2.0b7 (Unreleased)
+2.0b8 (2011-03-21)
 ------------------
 
+* Now using the show/hide functionality added in raptus.article.core 2.0b8
 * Render XHTML valid page template
   [saily]
-  
+
 2.0b6 (2010-12-07)
 ------------------
 
