@@ -25,6 +25,7 @@ setup(name='raptus.article.gallery',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'raptus.article.core>=2.0b8',
           'raptus.article.images',
           # -*- Extra requirements: -*-
       ],
