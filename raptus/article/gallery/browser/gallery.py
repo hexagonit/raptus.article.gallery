@@ -1,4 +1,3 @@
-from Acquisition import aq_inner
 from zope import interface, component
 
 from Products.CMFCore.utils import getToolByName
@@ -6,9 +5,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.instance import memoize
 
-try: # Plone 4 and higher
+try:  # Plone 4 and higher
     from Products.ATContentTypes.interfaces.image import IATImage
-except: # BBB Plone 3
+except:  # BBB Plone 3
     from Products.ATContentTypes.interface.image import IATImage
 
 from raptus.article.core.config import MANAGE_PERMISSION
@@ -16,9 +15,11 @@ from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
 from raptus.article.images.interfaces import IImages, IImage
 
+
 class IGalleryLeft(interface.Interface):
     """ Marker interface for the gallery left viewlet
     """
+
 
 class ComponentLeft(object):
     """ Component which lists the images on the left side
@@ -35,6 +36,7 @@ class ComponentLeft(object):
     def __init__(self, context):
         self.context = context
 
+
 class ViewletLeft(ViewletBase):
     """ Viewlet listing the images on the left side
     """
@@ -43,14 +45,14 @@ class ViewletLeft(ViewletBase):
     css_class = "componentLeft gallery-left"
     thumb_size = "galleryleft"
     component = "gallery.left"
-    type="left"
+    type = "left"
 
     def _class(self, brain, i, l):
         # TODO: why is brain needed here?
         cls = []
         if i == 0:
             cls.append('first')
-        if i == l-1:
+        if i == l - 1:
             cls.append('last')
         if i % 2 == 0:
             cls.append('odd')
@@ -110,9 +112,11 @@ class ViewletLeft(ViewletBase):
             # for this component
             return provider.getImages(component=self.component)
 
+
 class IGalleryRight(interface.Interface):
     """ Marker interface for the gallery right viewlet
     """
+
 
 class ComponentRight(object):
     """ Component which lists the images on the right side
@@ -129,6 +133,7 @@ class ComponentRight(object):
     def __init__(self, context):
         self.context = context
 
+
 class ViewletRight(ViewletLeft):
     """ Viewlet listing the images on the right side
     """
@@ -137,9 +142,11 @@ class ViewletRight(ViewletLeft):
     component = "gallery.right"
     type = "right"
 
+
 class IGalleryColumns(interface.Interface):
     """ Marker interface for the gallery columns viewlet
     """
+
 
 class ComponentColumns(object):
     """ Component which lists the articles in multiple columns
@@ -156,6 +163,7 @@ class ComponentColumns(object):
     def __init__(self, context):
         self.context = context
 
+
 class ViewletColumns(ViewletLeft):
     """ Viewlet listing the images in multiple columns
     """
@@ -170,4 +178,3 @@ class ViewletColumns(ViewletLeft):
         props = getToolByName(self.context, 'portal_properties').raptus_article
         i = i % props.getProperty('gallery_columns', 3)
         return super(ViewletColumns, self)._class(brain, i, props.getProperty('gallery_columns', 3))
-
