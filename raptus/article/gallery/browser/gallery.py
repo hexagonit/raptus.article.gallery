@@ -69,38 +69,53 @@ class ViewletLeft(ViewletBase):
     @memoize
     def images(self):
         # prepare tools
-        provider = IImages(self.context)
         manageable = interfaces.IManageable(self.context)
-        mship = getToolByName(self.context, 'portal_membership')
 
         # get all images for editors, but only visible ones for viewers
         images = self.get_visible_images()
 
         # get specific info for displaying
         # management links (view, edit, show, hide, etc.)
-        items = manageable.getList(items, self.component)
+        items = manageable.getList(images, self.component)
 
         l = len(items)
         for i, item in enumerate(items):
             img = IImage(item['obj'])
             item.update({'caption': img.getCaption(),
                          'class': self._class(item['brain'], i, l),
-                         'img': img.getImage(self.thumb_size),
+                         'img': img.getImage(self.thumb_size),  # TODO: refactor this to getImageTag
                          'description': item['brain'].Description,
                          'rel': None,
                          'url': None})
-            if item.has_key('show') and item['show']:
-                item['class'] += ' hidden'
+
+            # should this image be hidden?
+            item['class'] += self.is_item_hidden(item)
+
+            # get image and thumb sizes
             w, h = item['obj'].getSize()
             tw, th = img.getSize(self.thumb_size)
+
+            # if any thumb size is smaller than the image itself,
+            # then display the lightbox overlay
             if (tw < w and tw > 0) or (th < h and th > 0):
                 item['rel'] = 'lightbox[%s]' % self.css_class
                 item['url'] = img.getImageURL(size="popup")
+
         return items
 
-    def get_visible_images():
+    def is_item_hidden(self, item):
+        """Returns CSS class for hidden image, if applicable."""
+        if 'show' in item and item['show']:
+            # if item has a 'show' link and that link is not empty,
+            # then this Image must be marked hidden
+            return ' hidden'
+        return ''
+
+    def get_visible_images(self):
         """If user can manage images then display all images. otherwise display
         only images that are marked as 'show'."""
+        provider = IImages(self.context)
+        mship = getToolByName(self.context, 'portal_membership')
 
         if mship.checkPermission(MANAGE_PERMISSION, self.context):
             # return images directly contained in this Article
