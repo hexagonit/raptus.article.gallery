@@ -80,28 +80,60 @@ class ViewletLeft(ViewletBase):
 
         l = len(items)
         for i, item in enumerate(items):
+
+            # get an ATImage object wrapped with raptus.article.images IImage
+            # adapter that gives it getImageURL, getImageTag, getSize and getCaption
             image = IImage(item['obj'])
-            item.update({'caption': image.getCaption(),
-                         'class': self._class(item['brain'], i, l),
-                         'img': image.getImage(self.thumb_size),  # TODO: refactor this to getImageTag
-                         'description': item['brain'].Description,
-                         'rel': None,
-                         'url': None})
 
-            # should this image be hidden?
-            item['class'] += self.is_item_hidden(item)
-
-            # get image and thumb sizes
-            w, h = item['obj'].getSize()
-            tw, th = image.getSize(self.thumb_size)
+            # add information like CSS class, image caption, etc.
+            item = self.add_display_information(item, image, i, l)
 
             # if any thumb size is smaller than the image itself,
             # then display the lightbox overlay
-            if (tw < w and tw > 0) or (th < h and th > 0):
-                item['rel'] = 'lightbox[%s]' % self.css_class
-                item['url'] = image.getImageURL(size="popup")
+            item = self.add_lightbox_information(item, image)
 
         return items
+
+    def check_display_lightbox(self, item, image):
+        """Check whether we should display lightbox overlay for this image and
+        if positive, adds relevant information to the item dict.
+        """
+        # get image and thumb sizes
+        w, h = item['obj'].getSize()
+        tw, th = image.getSize(self.thumb_size)
+
+        rel, url = None, None
+        # if any thumb size is smaller than the image itself,
+        # then activate the lightbox
+        if (tw < w and tw > 0) or (th < h and th > 0):
+            rel = 'lightbox[%s]' % self.css_class,
+            url = image.getImageURL(size="popup")
+
+        item.update({'rel': rel,
+                     'url': url})
+        return item
+
+    def add_display_information(self, item, image, i, l):
+        """Add more information for displaying this item in HTML."""
+
+        # use IImage adapter's getCaption
+        caption = image.getCaption()
+
+        # get CSS class for this item
+        cls = self._class(item['brain'], i, l)  # TODO: brain is probably not needed
+        cls += self.is_item_hidden(item)
+
+        # use IImage adapter's getImageTag to get HTML img tab of image's thumb
+        img_tag = image.getImage(self.thumb_size)
+
+        # get Description from the brain
+        description = item['brain'].Description
+
+        item.update({'caption': caption,
+                     'class': cls,
+                     'img': img_tag,
+                     'description': description})
+        return item
 
     def is_item_hidden(self, item):
         """Returns CSS class for hidden image, if applicable."""
