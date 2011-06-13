@@ -25,26 +25,26 @@ class ComponentLeft(object):
     """
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
-    
+
     title = _(u'Gallery left')
     description = _(u'Gallery of the images contained in the article on the left side.')
     image = '++resource++gallery_left.gif'
     interface = IGalleryLeft
     viewlet = 'raptus.article.gallery.left'
-    
+
     def __init__(self, context):
         self.context = context
 
 class ViewletLeft(ViewletBase):
     """ Viewlet listing the images on the left side
     """
-    
+
     index = ViewPageTemplateFile('gallery.pt')
     css_class = "componentLeft gallery-left"
     thumb_size = "galleryleft"
     component = "gallery.left"
     type="left"
-    
+
     def _class(self, brain, i, l):
         # TODO: why is brain needed here?
         cls = []
@@ -103,13 +103,13 @@ class ComponentRight(object):
     """
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
-    
+
     title = _(u'Gallery right')
     description = _(u'Gallery of the images contained in the article on the right side.')
     image = '++resource++gallery_right.gif'
     interface = IGalleryRight
     viewlet = 'raptus.article.gallery.right'
-    
+
     def __init__(self, context):
         self.context = context
 
@@ -130,13 +130,13 @@ class ComponentColumns(object):
     """
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
-    
+
     title = _(u'Gallery columns')
     description = _(u'Gallery of the images contained in the article arranged in columns.')
     image = '++resource++gallery_columns.gif'
     interface = IGalleryColumns
     viewlet = 'raptus.article.gallery.columns'
-    
+
     def __init__(self, context):
         self.context = context
 
@@ -147,11 +147,11 @@ class ViewletColumns(ViewletLeft):
     thumb_size = "gallerycolumns"
     component = "gallery.columns"
     type = "columns"
-    
+
     def _class(self, brain, i, l):
         # TODO: I belive brain is not needed here also
         # 'l' is not needed
         props = getToolByName(self.context, 'portal_properties').raptus_article
         i = i % props.getProperty('gallery_columns', 3)
         return super(ViewletColumns, self)._class(brain, i, props.getProperty('gallery_columns', 3))
-    
+
