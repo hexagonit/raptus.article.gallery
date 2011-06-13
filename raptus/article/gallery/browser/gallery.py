@@ -80,10 +80,10 @@ class ViewletLeft(ViewletBase):
 
         l = len(items)
         for i, item in enumerate(items):
-            img = IImage(item['obj'])
-            item.update({'caption': img.getCaption(),
+            image = IImage(item['obj'])
+            item.update({'caption': image.getCaption(),
                          'class': self._class(item['brain'], i, l),
-                         'img': img.getImage(self.thumb_size),  # TODO: refactor this to getImageTag
+                         'img': image.getImage(self.thumb_size),  # TODO: refactor this to getImageTag
                          'description': item['brain'].Description,
                          'rel': None,
                          'url': None})
@@ -93,13 +93,13 @@ class ViewletLeft(ViewletBase):
 
             # get image and thumb sizes
             w, h = item['obj'].getSize()
-            tw, th = img.getSize(self.thumb_size)
+            tw, th = image.getSize(self.thumb_size)
 
             # if any thumb size is smaller than the image itself,
             # then display the lightbox overlay
             if (tw < w and tw > 0) or (th < h and th > 0):
                 item['rel'] = 'lightbox[%s]' % self.css_class
-                item['url'] = img.getImageURL(size="popup")
+                item['url'] = image.getImageURL(size="popup")
 
         return items
 
