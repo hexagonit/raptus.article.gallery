@@ -62,18 +62,28 @@ class ViewletLeft(ViewletBase):
     def show_description(self):
         props = getToolByName(self.context, 'portal_properties').raptus_article
         return props.getProperty('gallery_%s_description' % self.type, False)
-    
+
     @property
     @memoize
     def images(self):
+        # prepare tools
         provider = IImages(self.context)
         manageable = interfaces.IManageable(self.context)
         mship = getToolByName(self.context, 'portal_membership')
+
+        # if user can manage images display all images, otherwise
+        # display only images that have visibility set to true
         if mship.checkPermission(MANAGE_PERMISSION, self.context):
             items = provider.getImages()
         else:
+            # if image has this component in it's 'component' field,
+            # this means that this image is visible for this component
             items = provider.getImages(component=self.component)
+
+        # get specific info for displaying
+        # management links (view, edit, show, hide, etc.)
         items = manageable.getList(items, self.component)
+
         i = 0
         l = len(items)
         for item in items:
