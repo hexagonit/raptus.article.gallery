@@ -1,0 +1,110 @@
+User story
+==========
+
+A scripted walk-through of basic features of Raptus Article Gallery.
+
+Preparing
+---------
+
+We'll start by importing what we need and adding an Article with an Image. 
+    
+    >>> from StringIO import StringIO
+    >>> foo = portal.invokeFactory('Article', 'article')
+    >>> bar = portal.article.invokeFactory('Image', 'image', title='Image', image=PNG_IMAGE)
+    >>> import transaction; transaction.commit()
+
+Now, let's login so we can later use the @@components view to test how
+Raptus Article Gallery components work.
+
+    Go to login screen.
+    >>> browser.open(portal.absolute_url() + '/login')
+
+    Fill in your credentials.
+    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
+    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+
+    Click Login button.
+    >>> browser.getControl(name='submit').click()
+
+    Are we logged in?
+    >>> "You are now logged in" in browser.contents
+    True
+
+
+Gallery components
+------------------
+
+So, we now have an Article with an Image. By default, this Image is not
+visible, because there are no active components to display it.
+
+    >>> browser.open(portal.absolute_url() + '/article')
+
+Lets check which gallery components are available.
+
+    Verify that we have the link to access Components tab.
+    >>> browser.open(portal.absolute_url() + '/article')
+    >>> browser.getLink('Components').url.endswith("@@components")
+    True
+
+    Click this link to open the form for managing Article's Components.
+    >>> browser.getLink('Components').click()
+
+    Let's check that we have gallery components on the list of available
+    Components.
+    
+    >>> 'Gallery left' in browser.contents
+    True
+    >>> '++resource++gallery_left.gif' in browser.contents
+    True
+    >>> 'Gallery of the images contained in the article on the left side.' in browser.contents
+    True
+
+    >>> 'Gallery right' in browser.contents
+    True
+    >>> '++resource++gallery_right.gif' in browser.contents
+    True
+    >>> 'Gallery of the images contained in the article on the right side.' in browser.contents
+    True
+
+    >>> 'Gallery columns' in browser.contents
+    True
+    >>> '++resource++gallery_columns.gif' in browser.contents
+    True
+    >>> 'Gallery of the images contained in the article arranged in columns.' in browser.contents
+    True
+
+
+Displaying an Image
+-------------------
+
+Now, let's activate one gallery component by checking it's checkbox and clicking the Save
+button.
+
+    Verify that we have a checkbox for 'related' Component and that it's not checked
+    >>> browser.open(portal.absolute_url() + '/article/@@components')
+    >>> control = browser.getControl(name='form.components:list').controls[1]
+    >>> control.optionValue
+    'gallery.left'
+
+    Click on the checkbox to make it selected
+    >>> control.click()
+
+    Save our changes by clicking the Save button.
+    >>> browser.getControl(name='form.submitted').click()
+
+    Did we get the success notification?
+    >>> 'Components saved successfully' in browser.contents
+    True
+
+    The 'gallery-left' checkbox should now be selected.
+    >>> control.selected
+    True
+
+Our Image should now be visible on the Article view.
+
+    Go back to the Article view.
+    >>> browser.open(portal.absolute_url() + '/article')
+    
+    Search for img tag showing our Image.
+    >>> '<img src="http://nohost/plone/article/image/@@images/' in browser.contents
+    True
