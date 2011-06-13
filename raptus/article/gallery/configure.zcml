@@ -5,10 +5,11 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="raptus.article">
-      
-    <include package="raptus.article.images" />
+
+    <five:registerPackage package="." />      
     
-    <five:registerPackage package="." />
+    <!-- Include configuration files of all setup.py dependencies -->
+    <includeDependencies package="." />  
 
     <!-- Include the sub-packages that use their own configure.zcml files. -->
     <include package=".browser" />
