@@ -78,9 +78,8 @@ class ViewletLeft(ViewletBase):
         # management links (view, edit, show, hide, etc.)
         items = manageable.getList(items, self.component)
 
-        i = 0
         l = len(items)
-        for item in items:
+        for i, item in enumerate(items):
             img = IImage(item['obj'])
             item.update({'caption': img.getCaption(),
                          'class': self._class(item['brain'], i, l),
@@ -95,7 +94,6 @@ class ViewletLeft(ViewletBase):
             if (tw < w and tw > 0) or (th < h and th > 0):
                 item['rel'] = 'lightbox[%s]' % self.css_class
                 item['url'] = img.getImageURL(size="popup")
-            i += 1
         return items
 
     def get_visible_images():
