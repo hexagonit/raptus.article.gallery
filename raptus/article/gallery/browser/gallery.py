@@ -71,14 +71,8 @@ class ViewletLeft(ViewletBase):
         manageable = interfaces.IManageable(self.context)
         mship = getToolByName(self.context, 'portal_membership')
 
-        # if user can manage images display all images, otherwise
-        # display only images that have visibility set to true
-        if mship.checkPermission(MANAGE_PERMISSION, self.context):
-            items = provider.getImages()
-        else:
-            # if image has this component in it's 'component' field,
-            # this means that this image is visible for this component
-            items = provider.getImages(component=self.component)
+        # get all images for editors, but only visible ones for viewers
+        images = self.get_visible_images()
 
         # get specific info for displaying
         # management links (view, edit, show, hide, etc.)
@@ -103,6 +97,20 @@ class ViewletLeft(ViewletBase):
                 item['url'] = img.getImageURL(size="popup")
             i += 1
         return items
+
+    def get_visible_images():
+        """If user can manage images then display all images. otherwise display
+        only images that are marked as 'show'."""
+
+        if mship.checkPermission(MANAGE_PERMISSION, self.context):
+            # return images directly contained in this Article
+            return provider.getImages()
+        else:
+            # return images directly contained in this Article (self.context)
+            # but filter out those that don't have this component (self.component)
+            # in their 'component' field -> this meands that the Image is hidden
+            # for this component
+            return provider.getImages(component=self.component)
 
 class IGalleryRight(interface.Interface):
     """ Marker interface for the gallery right viewlet
