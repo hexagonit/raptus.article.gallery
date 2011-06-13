@@ -46,6 +46,7 @@ class ViewletLeft(ViewletBase):
     type="left"
     
     def _class(self, brain, i, l):
+        # TODO: why is brain needed here?
         cls = []
         if i == 0:
             cls.append('first')
@@ -148,6 +149,8 @@ class ViewletColumns(ViewletLeft):
     type = "columns"
     
     def _class(self, brain, i, l):
+        # TODO: I belive brain is not needed here also
+        # 'l' is not needed
         props = getToolByName(self.context, 'portal_properties').raptus_article
         i = i % props.getProperty('gallery_columns', 3)
         return super(ViewletColumns, self)._class(brain, i, props.getProperty('gallery_columns', 3))
