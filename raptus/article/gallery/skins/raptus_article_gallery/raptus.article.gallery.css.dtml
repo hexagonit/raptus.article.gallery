@@ -39,6 +39,8 @@ ul.gallery li span {
 }
 
 ul.gallery-left {
+  clear:left;
+  float:left;
   width:&dtml-left_width;px;
   padding:0 3em 1em 0;
   background-color:&dtml-backgroundColor;;
