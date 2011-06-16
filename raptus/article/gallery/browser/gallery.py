@@ -1,3 +1,4 @@
+from Acquisition import aq_parent
 from zope import interface, component
 
 from Products.CMFCore.utils import getToolByName
@@ -13,6 +14,7 @@ except:  # BBB Plone 3
 from raptus.article.core.config import MANAGE_PERMISSION
 from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
+from raptus.article.core.interfaces import IComponentsConfiguration
 from raptus.article.images.interfaces import IImages, IImage
 
 
@@ -62,8 +64,8 @@ class ViewletLeft(ViewletBase):
 
     @property
     def show_description(self):
-        props = getToolByName(self.context, 'portal_properties').raptus_article
-        return props.getProperty('gallery_%s_description' % self.type, False)
+        article = aq_parent(self.context)
+        return IComponentsConfiguration(article).get('gallery_%s_description' % self.type, False)
 
     @property
     @memoize
