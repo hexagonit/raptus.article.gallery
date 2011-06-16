@@ -81,50 +81,45 @@ class ViewletLeft(ViewletBase):
         l = len(items)
         for i, item in enumerate(items):
 
-            # get an ATImage object wrapped with raptus.article.images IImage
-            # adapter that gives it getImageURL, getImageTag, getSize and getCaption
-            image = IImage(item['obj'])
-
             # add information like CSS class, image caption, etc.
-            item = self.add_display_information(item, image, i, l)
+            item = self.add_display_information(item, i, l)
 
             # if any thumb size is smaller than the image itself,
             # then display the lightbox overlay
-            item = self.add_lightbox_information(item, image)
+            item = self.check_display_lightbox(item)
 
         return items
 
-    def check_display_lightbox(self, item, image):
+    def check_display_lightbox(self, item):
         """Check whether we should display lightbox overlay for this image and
         if positive, adds relevant information to the item dict.
         """
-        # get image and thumb sizes
         w, h = item['obj'].getSize()
-        tw, th = image.getSize(self.thumb_size)
+        tw, th = IImage(item['obj']).getSize(self.thumb_size)
 
         rel, url = None, None
         # if any thumb size is smaller than the image itself,
         # then activate the lightbox
         if (tw < w and tw > 0) or (th < h and th > 0):
             rel = 'lightbox[%s]' % self.css_class,
-            url = image.getImageURL(size="popup")
+            url = IImage(item['obj']).getImageURL(size="popup")
 
         item.update({'rel': rel,
                      'url': url})
         return item
 
-    def add_display_information(self, item, image, i, l):
+    def add_display_information(self, item, i, l):
         """Add more information for displaying this item in HTML."""
 
         # use IImage adapter's getCaption
-        caption = image.getCaption()
+        caption = IImage(item['obj']).getCaption()
 
         # get CSS class for this item
         cls = self._class(item['brain'], i, l)  # TODO: brain is probably not needed
         cls += self.is_item_hidden(item)
 
         # use IImage adapter's getImageTag to get HTML img tab of image's thumb
-        img_tag = image.getImage(self.thumb_size)
+        img_tag = IImage(item['obj']).getImage(self.thumb_size)
 
         # get Description from the brain
         description = item['brain'].Description
@@ -146,18 +141,17 @@ class ViewletLeft(ViewletBase):
     def get_visible_images(self):
         """If user can manage images then display all images. otherwise display
         only images that are marked as 'show'."""
-        provider = IImages(self.context)
+        images = IImages(self.context)
         mship = getToolByName(self.context, 'portal_membership')
-
         if mship.checkPermission(MANAGE_PERMISSION, self.context):
             # return images directly contained in this Article
-            return provider.getImages()
+            return images.getImages()
         else:
             # return images directly contained in this Article (self.context)
             # but filter out those that don't have this component (self.component)
             # in their 'component' field -> this meands that the Image is hidden
             # for this component
-            return provider.getImages(component=self.component)
+            return images.getImages(component=self.component)
 
 
 class IGalleryRight(interface.Interface):
@@ -220,8 +214,8 @@ class ViewletColumns(ViewletLeft):
     type = "columns"
 
     def _class(self, brain, i, l):
-        # TODO: I belive brain is not needed here also
-        # 'l' is not needed
+        # TODO: I belive brain is not needed here
+        # 'l' is also not needed
         props = getToolByName(self.context, 'portal_properties').raptus_article
         i = i % props.getProperty('gallery_columns', 3)
         return super(ViewletColumns, self)._class(brain, i, props.getProperty('gallery_columns', 3))
