@@ -305,6 +305,14 @@ class TestGalleriesIntegration(RAGalleryIntegrationTestCase):
         self.assertEquals(component.viewlet, 'raptus.article.gallery.columns')
         self.assertEquals(component.context, self.portal.article)
 
+    def test_show_description(self):
+        """Test the main method of ViewletLeft."""
+        from raptus.article.gallery.browser.gallery import ViewletLeft
+        viewlet = ViewletLeft(self.portal.article, self.layer['request'], None)
+        self.portal.portal_properties.raptus_article.gallery_left_description = True
+        
+        self.assertEquals(viewlet.show_description, True)
+
     def test_images(self):
         """Test the main method of ViewletLeft."""
 
