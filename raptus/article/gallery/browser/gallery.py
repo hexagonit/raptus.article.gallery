@@ -1,4 +1,3 @@
-from Acquisition import aq_parent
 from zope import interface, component
 
 from Products.CMFCore.utils import getToolByName
@@ -64,8 +63,7 @@ class ViewletLeft(ViewletBase):
 
     @property
     def show_description(self):
-        article = aq_parent(self.context)
-        return IComponentsConfiguration(article).get('gallery_%s_description' % self.type, False)
+        return IComponentsConfiguration(self.context).get('gallery_%s_description' % self.type, False)
 
     @property
     @memoize
