@@ -310,7 +310,7 @@ class TestGalleriesIntegration(RAGalleryIntegrationTestCase):
         from raptus.article.gallery.browser.gallery import ViewletLeft
         viewlet = ViewletLeft(self.portal.article, self.layer['request'], None)
         self.portal.portal_properties.raptus_article.gallery_left_description = True
-        
+
         self.assertEquals(viewlet.show_description, True)
 
     def test_images(self):

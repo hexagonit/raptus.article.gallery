@@ -1,30 +1,29 @@
-from zope import interface, component
-
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.layout.viewlets.common import ViewletBase
-from plone.memoize.instance import memoize
+# -*- coding: utf-8 -*-
+"""Gallery components and viewlets."""
 
 try:  # Plone 4 and higher
     from Products.ATContentTypes.interfaces.image import IATImage
 except:  # BBB Plone 3
     from Products.ATContentTypes.interface.image import IATImage
 
-from raptus.article.core.config import MANAGE_PERMISSION
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.layout.viewlets.common import ViewletBase
+from plone.memoize.instance import memoize
 from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
+from raptus.article.core.config import MANAGE_PERMISSION
 from raptus.article.core.interfaces import IComponentsConfiguration
 from raptus.article.images.interfaces import IImages, IImage
+from zope import interface, component
 
 
 class IGalleryLeft(interface.Interface):
-    """ Marker interface for the gallery left viewlet
-    """
+    """Marker interface for the gallery left viewlet."""
 
 
 class ComponentLeft(object):
-    """ Component which lists the images on the left side
-    """
+    """Component which lists the images on the left side."""
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
 
@@ -39,8 +38,7 @@ class ComponentLeft(object):
 
 
 class ViewletLeft(ViewletBase):
-    """ Viewlet listing the images on the left side
-    """
+    """Viewlet listing the images on the left side"""
 
     index = ViewPageTemplateFile('gallery.pt')
     css_class = "componentLeft gallery-left"
@@ -155,13 +153,11 @@ class ViewletLeft(ViewletBase):
 
 
 class IGalleryRight(interface.Interface):
-    """ Marker interface for the gallery right viewlet
-    """
+    """Marker interface for the gallery right viewlet."""
 
 
 class ComponentRight(object):
-    """ Component which lists the images on the right side
-    """
+    """Component which lists the images on the right side."""
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
 
@@ -176,8 +172,7 @@ class ComponentRight(object):
 
 
 class ViewletRight(ViewletLeft):
-    """ Viewlet listing the images on the right side
-    """
+    """Viewlet listing the images on the right side."""
     css_class = "componentRight gallery-right"
     thumb_size = "galleryright"
     component = "gallery.right"
@@ -185,13 +180,11 @@ class ViewletRight(ViewletLeft):
 
 
 class IGalleryColumns(interface.Interface):
-    """ Marker interface for the gallery columns viewlet
-    """
+    """Marker interface for the gallery columns viewlet."""
 
 
 class ComponentColumns(object):
-    """ Component which lists the articles in multiple columns
-    """
+    """Component which lists the articles in multiple columns."""
     interface.implements(interfaces.IComponent, interfaces.IComponentSelection)
     component.adapts(interfaces.IArticle)
 
@@ -206,8 +199,7 @@ class ComponentColumns(object):
 
 
 class ViewletColumns(ViewletLeft):
-    """ Viewlet listing the images in multiple columns
-    """
+    """Viewlet listing the images in multiple columns."""
     css_class = "columns gallery-columns"
     thumb_size = "gallerycolumns"
     component = "gallery.columns"

@@ -3,6 +3,16 @@ import os
 
 version = '2.0b8'
 
+install_requires = [
+    'manuel',
+    'mock',
+    'plone.app.testing',
+    'raptus.article.core>=2.0b8',
+    'raptus.article.images',
+    'setuptools',
+    'unittest2',
+],
+
 setup(name='raptus.article.gallery',
       version=version,
       description="Provides basic gallery components.",
@@ -23,13 +33,10 @@ setup(name='raptus.article.gallery',
       namespace_packages=['raptus', 'raptus.article'],
       include_package_data=True,
       zip_safe=False,
-      install_requires=[
-          'setuptools',
-          'raptus.article.core>=2.0b8',
-          'raptus.article.images',
-          # -*- Extra requirements: -*-
-      ],
+      install_requires=install_requires,
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
